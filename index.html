@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Black Snape ($SNAPE) — Dark Lord of Solana</title>
+  <meta name="description" content="Black Snape ($SNAPE). The Dark Lord of Solana. 0% Tax. Community owned.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #7B2FBE;
+      --secondary: #1a1a2e;
+      --accent: #00FF94;
+      --bg: #0a0008;
+      --surface: #12001a;
+      --text: #ffffff;
+      --text-muted: #b3b3b3;
+      --font-title: 'Cinzel', serif;
+      --font-body: 'Crimson Text', serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--font-title);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    /* ANIMATIONS */
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(5deg);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes ticker {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+
+      100% {
+        transform: translate3d(-50%, 0, 0);
+      }
+    }
+
+    @keyframes glowPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 10px rgba(0, 255, 148, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 30px rgba(0, 255, 148, 0.7), 0 0 60px rgba(0, 255, 148, 0.3);
+      }
+    }
+
+    @keyframes borderGlow {
+
+      0%,
+      100% {
+        border-color: rgba(123, 47, 190, 0.4);
+      }
+
+      50% {
+        border-color: var(--accent);
+      }
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(10, 0, 8, 0.92);
+      backdrop-filter: blur(14px);
+      z-index: 1000;
+      padding: 0 5%;
+      height: 68px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(123, 47, 190, 0.3);
+    }
+
+    .logo {
+      font-family: var(--font-title);
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 900;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-shadow: 0 0 10px rgba(123, 47, 190, 0.6);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 24px;
+    }
+
+    .nav-links li a {
+      color: var(--text);
+      text-decoration: none;
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: 0.78rem;
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+
+    .nav-links li a:hover {
+      color: var(--accent);
+    }
+
+    .nav-cta {
+      background: var(--accent);
+      color: var(--bg);
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      animation: glowPulse 2.5s ease-in-out infinite;
+    }
+
+    .nav-cta:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    /* HAMBURGER */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+      z-index: 1100;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* MOBILE DRAWER */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px;
+      left: 0;
+      right: 0;
+      background: rgba(10, 0, 8, 0.98);
+      backdrop-filter: blur(14px);
+      z-index: 999;
+      flex-direction: column;
+      padding: 1.5rem 2rem;
+      gap: 0.75rem;
+      border-bottom: 1px solid rgba(123, 47, 190, 0.3);
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      color: var(--text);
+      text-decoration: none;
+      font-family: var(--font-title);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      transition: color 0.2s;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--accent);
+    }
+
+    .mobile-menu .mobile-cta {
+      background: var(--accent);
+      color: var(--bg);
+      text-align: center;
+      padding: 12px;
+      border-radius: 30px;
+      margin-top: 0.5rem;
+      border-bottom: none;
+      font-weight: 700;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-block;
+      padding: 13px 30px;
+      border-radius: 30px;
+      font-family: var(--font-title);
+      font-weight: 700;
+      text-decoration: none;
+      font-size: clamp(0.8rem, 2vw, 1rem);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-align: center;
+      white-space: nowrap;
+      border: 2px solid;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+      animation: glowPulse 2.5s ease-in-out infinite;
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: rgba(123, 47, 190, 0.1);
+      color: var(--text);
+      border-color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: rgba(123, 47, 190, 0.3);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 100px 20px 60px;
+      background: radial-gradient(ellipse at center, rgba(26, 26, 46, 0.8) 0%, var(--bg) 70%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(123, 47, 190, 0.08) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      animation: fadeIn 1s ease-out;
+      width: 100%;
+      max-width: 820px;
+    }
+
+    .hero-emoji {
+      font-size: clamp(4.5rem, 16vw, 10rem);
+      animation: float 5s ease-in-out infinite;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 0 50px rgba(123, 47, 190, 0.9));
+      line-height: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 12vw, 7rem);
+      margin-bottom: 16px;
+      line-height: 1;
+      background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 3px;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-title);
+      font-size: clamp(0.8rem, 2vw, 1rem);
+      letter-spacing: 4px;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero .tagline {
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 36px;
+      font-style: italic;
+      font-weight: 600;
+      padding: 0 10px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 0 16px;
+    }
+
+    .hero-buttons .btn {
+      flex: 1 1 150px;
+      max-width: 240px;
+    }
+
+    /* CA BOX */
+    .ca-section {
+      background: var(--surface);
+      border-top: 1px solid rgba(123, 47, 190, 0.3);
+      border-bottom: 1px solid rgba(123, 47, 190, 0.3);
+      padding: clamp(30px, 5vw, 50px) clamp(16px, 5%, 10%);
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .ca-label {
+      font-family: var(--font-title);
+      font-size: clamp(0.7rem, 2vw, 0.85rem);
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .ca-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(10, 0, 8, 0.8);
+      border: 1px solid rgba(123, 47, 190, 0.4);
+      border-radius: 12px;
+      padding: 14px 20px;
+      max-width: 100%;
+      width: auto;
+      animation: borderGlow 3s ease-in-out infinite;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .ca-address {
+      font-family: monospace;
+      font-size: clamp(0.7rem, 2vw, 1rem);
+      color: var(--accent);
+      letter-spacing: 1px;
+      word-break: break-all;
+      text-align: center;
+    }
+
+    .ca-copy {
+      background: var(--primary);
+      color: var(--text);
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-family: var(--font-title);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .ca-copy:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .ca-copy.copied {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    /* TICKER */
+    .ticker-wrap {
+      width: 100%;
+      background: var(--primary);
+      padding: 13px 0;
+      overflow: hidden;
+      border-top: 1px solid var(--accent);
+      border-bottom: 1px solid var(--accent);
+      position: relative;
+      z-index: 20;
+    }
+
+    .ticker {
+      display: flex;
+      white-space: nowrap;
+      animation: ticker 20s linear infinite;
+    }
+
+    .ticker-item {
+      font-family: var(--font-title);
+      font-size: clamp(0.75rem, 2vw, 1.1rem);
+      font-weight: 700;
+      color: var(--text);
+      padding: 0 30px;
+      letter-spacing: 1px;
+    }
+
+    /* SHARED SECTION */
+    section {
+      padding: clamp(60px, 10vw, 110px) clamp(16px, 5%, 10%);
+      position: relative;
+      z-index: 10;
+    }
+
+    .section-label {
+      font-family: var(--font-title);
+      font-size: clamp(0.65rem, 1.5vw, 0.8rem);
+      letter-spacing: 4px;
+      color: var(--accent);
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 5vw, 3rem);
+      text-align: center;
+      margin-bottom: clamp(30px, 5vw, 55px);
+      color: var(--text);
+      letter-spacing: 2px;
+    }
+
+    .section-title span {
+      color: var(--accent);
+    }
+
+    /* STORY SECTION */
+    .story {
+      background: var(--bg);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(30px, 5vw, 60px);
+      max-width: 1000px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .story-visual {
+      text-align: center;
+      font-size: clamp(6rem, 15vw, 12rem);
+      filter: drop-shadow(0 0 40px rgba(123, 47, 190, 0.7));
+      animation: float 6s ease-in-out infinite;
+      line-height: 1;
+    }
+
+    .story-text {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .story-text p {
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      color: var(--text-muted);
+      line-height: 1.9;
+    }
+
+    .story-text p strong {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .story-quote {
+      border-left: 3px solid var(--primary);
+      padding: 16px 20px;
+      background: rgba(123, 47, 190, 0.08);
+      border-radius: 0 12px 12px 0;
+      font-size: clamp(1rem, 2vw, 1.2rem) !important;
+      color: var(--text) !important;
+      font-style: italic !important;
+    }
+
+    /* TOKENOMICS */
+    .tokenomics {
+      background: var(--surface);
+      border-top: 1px solid rgba(123, 47, 190, 0.3);
+      border-bottom: 1px solid rgba(123, 47, 190, 0.3);
+    }
+
+    .tokenomics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .toko-card {
+      background: rgba(10, 0, 8, 0.6);
+      border: 1px solid rgba(123, 47, 190, 0.3);
+      padding: clamp(22px, 4vw, 45px) 16px;
+      text-align: center;
+      border-radius: 16px;
+      transition: all 0.4s ease;
+    }
+
+    .toko-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: 0 15px 40px rgba(0, 255, 148, 0.1);
+    }
+
+    .toko-card .toko-icon {
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
+      margin-bottom: 10px;
+    }
+
+    .toko-card .toko-value {
+      font-family: var(--font-title);
+      font-size: clamp(1.4rem, 4vw, 2.6rem);
+      color: var(--accent);
+      margin-bottom: 8px;
+      text-shadow: 0 0 10px rgba(0, 255, 148, 0.4);
+    }
+
+    .toko-card .toko-label {
+      font-size: clamp(0.75rem, 1.8vw, 1rem);
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* HOW TO BUY */
+    .how-to-buy {
+      background: var(--bg);
+    }
+
+    .buy-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .buy-step {
+      background: var(--surface);
+      border: 1px solid rgba(123, 47, 190, 0.25);
+      border-radius: 16px;
+      padding: clamp(20px, 3vw, 36px);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .buy-step::before {
+      content: attr(data-num);
+      position: absolute;
+      top: -10px;
+      right: 14px;
+      font-family: var(--font-title);
+      font-size: 5rem;
+      color: var(--primary);
+      opacity: 0.07;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .buy-step:hover {
+      border-color: var(--accent);
+      transform: translateY(-5px);
+    }
+
+    .buy-step-icon {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 12px;
+    }
+
+    .buy-step h3 {
+      font-size: clamp(0.95rem, 2vw, 1.3rem);
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .buy-step p {
+      font-size: clamp(0.85rem, 1.8vw, 1.1rem);
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .buy-cta {
+      text-align: center;
+      margin-top: clamp(30px, 5vw, 50px);
+    }
+
+    /* ROADMAP */
+    .roadmap {
+      background: var(--surface);
+      border-top: 1px solid rgba(123, 47, 190, 0.3);
+    }
+
+    .phases {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .phase {
+      background: var(--bg);
+      border-radius: 16px;
+      padding: clamp(20px, 3vw, 32px);
+      border-left: 3px solid var(--primary);
+      transition: all 0.3s ease;
+    }
+
+    .phase:hover {
+      border-left-color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    .phase-tag {
+      font-family: var(--font-title);
+      font-size: 0.68rem;
+      letter-spacing: 3px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .phase h3 {
+      font-size: clamp(0.95rem, 2vw, 1.3rem);
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+
+    .phase ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .phase ul li {
+      font-size: clamp(0.82rem, 1.8vw, 1rem);
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .phase ul li::before {
+      content: '✦';
+      color: var(--primary);
+      font-size: 0.6rem;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    /* SOCIALS */
+    .socials {
+      text-align: center;
+      background: radial-gradient(ellipse at top, rgba(26, 26, 46, 0.6) 0%, var(--bg) 70%);
+      border-top: 1px solid rgba(123, 47, 190, 0.3);
+    }
+
+    .socials-sub {
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      max-width: 600px;
+      margin: 0 auto clamp(28px, 5vw, 48px);
+      color: var(--text-muted);
+      font-style: italic;
+      padding: 0 10px;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 0 16px;
+      margin-bottom: clamp(24px, 4vw, 40px);
+    }
+
+    .social-btn {
+      flex: 1 1 130px;
+      max-width: 200px;
+    }
+
+    .final-cta {
+      margin-top: 10px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #050004;
+      text-align: center;
+      padding: clamp(24px, 4vw, 40px) 20px;
+      border-top: 2px solid var(--primary);
+    }
+
+    .footer-logo {
+      font-family: var(--font-title);
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      color: var(--accent);
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: clamp(0.68rem, 1.6vw, 0.85rem);
+      font-family: var(--font-title);
+      letter-spacing: 1px;
+      line-height: 1.8;
+    }
+
+    .disclaimer {
+      margin-top: 10px;
+      opacity: 0.45;
+      font-size: clamp(0.6rem, 1.4vw, 0.75rem) !important;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* TABLET */
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .story-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .story-visual {
+        font-size: clamp(5rem, 20vw, 8rem);
+      }
+    }
+
+    /* MOBILE */
+    @media (max-width: 600px) {
+      .hero {
+        padding: 88px 16px 50px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hero-buttons .btn {
+        max-width: 100%;
+      }
+
+      .tokenomics-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .social-links {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .social-btn {
+        max-width: 100%;
+      }
+
+      .ca-box {
+        padding: 12px 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#home" class="logo">🧙🏿 Black <span>Snape</span></a>
+    <ul class="nav-links">
+      <li><a href="#story">Story</a></li>
+      <li><a href="#tokenomics">Tokenomics</a></li>
+      <li><a href="#how-to-buy">How to Buy</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
+    </ul>
+    <a href="DEXSCREENER_LINK_HERE" target="_blank" class="nav-cta">⚡ Buy $SNAPE</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#story" onclick="closeMenu()">Story</a>
+    <a href="#tokenomics" onclick="closeMenu()">Tokenomics</a>
+    <a href="#how-to-buy" onclick="closeMenu()">How to Buy</a>
+    <a href="#roadmap" onclick="closeMenu()">Roadmap</a>
+    <a href="DEXSCREENER_LINK_HERE" target="_blank" class="mobile-cta" onclick="closeMenu()">⚡ Buy $SNAPE</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="hero-emoji">🧙🏿</div>
+      <p class="hero-subtitle">The Dark Lord of Solana</p>
+      <h1>$SNAPE</h1>
+      <p class="tagline">"You dare sell? There will be no such foolishness in my blockchain."</p>
+      <div class="hero-buttons">
+        <a href="DEXSCREENER_LINK_HERE" target="_blank" class="btn btn-primary">⚡ Buy $SNAPE</a>
+        <a href="#story" class="btn btn-outline">📜 Read the Lore</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <div class="ticker-item">$SNAPE 🧙🏿 | DARK LORD OF SOLANA ⚡ | BUY OR FACE DETENTION 📜 | NO TAX. NO MERCY. 🔥
+        &nbsp;&nbsp;&nbsp;</div>
+      <div class="ticker-item">$SNAPE 🧙🏿 | DARK LORD OF SOLANA ⚡ | BUY OR FACE DETENTION 📜 | NO TAX. NO MERCY. 🔥
+        &nbsp;&nbsp;&nbsp;</div>
+      <div class="ticker-item">$SNAPE 🧙🏿 | DARK LORD OF SOLANA ⚡ | BUY OR FACE DETENTION 📜 | NO TAX. NO MERCY. 🔥
+        &nbsp;&nbsp;&nbsp;</div>
+      <div class="ticker-item">$SNAPE 🧙🏿 | DARK LORD OF SOLANA ⚡ | BUY OR FACE DETENTION 📜 | NO TAX. NO MERCY. 🔥
+        &nbsp;&nbsp;&nbsp;</div>
+      <div class="ticker-item">$SNAPE 🧙🏿 | DARK LORD OF SOLANA ⚡ | BUY OR FACE DETENTION 📜 | NO TAX. NO MERCY. 🔥
+        &nbsp;&nbsp;&nbsp;</div>
+      <div class="ticker-item">$SNAPE 🧙🏿 | DARK LORD OF SOLANA ⚡ | BUY OR FACE DETENTION 📜 | NO TAX. NO MERCY. 🔥
+        &nbsp;&nbsp;&nbsp;</div>
+    </div>
+  </div>
+
+  <!-- CA SECTION -->
+  <div class="ca-section">
+    <p class="ca-label">Contract Address</p>
+    <div class="ca-box">
+      <!-- SWAP: Replace the text below with your real CA after launch -->
+      <span class="ca-address" id="caAddress">PASTE_YOUR_CONTRACT_ADDRESS_HERE</span>
+      <button class="ca-copy" id="copyBtn" onclick="copyCA()">COPY</button>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <section class="story" id="story">
+    <div class="section-label">The Lore</div>
+    <h2 class="section-title">The Origin of the <span>Dark Lord</span></h2>
+    <div class="story-grid">
+      <div class="story-visual">🧙🏿</div>
+      <div class="story-text">
+        <p>
+          Long before the blockchains were forged, before Solana rose to power and degens roamed the earth,
+          there was a prophecy — <strong>a Dark Lord would come</strong>, not from the halls of Hogwarts,
+          but from the depths of the mempool.
+        </p>
+        <p class="story-quote">
+          "He was not chosen. He was not summoned. Black Snape simply appeared on the Solana blockchain one night — and
+          nothing has been the same since."
+        </p>
+        <p>
+          Part wizard. Part degen. <strong>All power.</strong> While others launched coins with promises,
+          team wallets, and empty roadmaps — Black Snape arrived with nothing but a wand,
+          a blockchain, and the unbothered energy of a man who has already won.
+        </p>
+        <p>
+          HBO gave us a Black Snape. The internet gave us memes.
+          <strong>We gave you a coin.</strong> The Dark Lord does not beg for buyers — buyers come to him.
+          0% tax. Liquidity burned. Ownership renounced. The magic is real.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOKENOMICS -->
+  <section class="tokenomics" id="tokenomics">
+    <div class="section-label">By The Numbers</div>
+    <h2 class="section-title">Token<span>omics</span></h2>
+    <div class="tokenomics-grid">
+      <div class="toko-card">
+        <div class="toko-icon">💊</div>
+        <div class="toko-value">1B</div>
+        <div class="toko-label">Total Supply</div>
+      </div>
+      <div class="toko-card">
+        <div class="toko-icon">⚡</div>
+        <div class="toko-value">0%</div>
+        <div class="toko-label">Buy/Sell Tax</div>
+      </div>
+      <div class="toko-card">
+        <div class="toko-icon">🔥</div>
+        <div class="toko-value">Burned</div>
+        <div class="toko-label">Liquidity</div>
+      </div>
+      <div class="toko-card">
+        <div class="toko-icon">✅</div>
+        <div class="toko-value">Renounced</div>
+        <div class="toko-label">Ownership</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO BUY -->
+  <section class="how-to-buy" id="how-to-buy">
+    <div class="section-label">Simple & Fast</div>
+    <h2 class="section-title">How to <span>Buy</span></h2>
+    <div class="buy-steps">
+      <div class="buy-step" data-num="1">
+        <div class="buy-step-icon">💰</div>
+        <h3>Get Some SOL</h3>
+        <p>Buy SOL from any exchange and send it to your Solana wallet. You know the drill.</p>
+      </div>
+      <div class="buy-step" data-num="2">
+        <div class="buy-step-icon">🔗</div>
+        <h3>Copy the CA</h3>
+        <p>Copy the $SNAPE contract address above. Don't buy the wrong token — the Dark Lord is watching.</p>
+      </div>
+      <div class="buy-step" data-num="3">
+        <div class="buy-step-icon">⚡</div>
+        <h3>Swap & Hold</h3>
+        <p>Paste the CA on any Solana DEX, swap your SOL for $SNAPE, and join the Dark Lord's army.</p>
+      </div>
+    </div>
+    <div class="buy-cta">
+      <a href="DEXSCREENER_LINK_HERE" target="_blank" class="btn btn-primary"
+        style="font-size:1.1rem; padding:16px 40px;">
+        🧙🏿 Buy $SNAPE Now
+      </a>
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section class="roadmap" id="roadmap">
+    <div class="section-label">The Plan</div>
+    <h2 class="section-title">Road<span>map</span></h2>
+    <div class="phases">
+      <div class="phase">
+        <div class="phase-tag">Phase 1</div>
+        <h3>The Arrival 🧙🏿</h3>
+        <ul>
+          <li>Token launch on Pump.fun</li>
+          <li>Website goes live</li>
+          <li>Twitter & Telegram launch</li>
+          <li>First 100 holders</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-tag">Phase 2</div>
+        <h3>The Spell 🔮</h3>
+        <ul>
+          <li>Trending on Pump.fun</li>
+          <li>Meme campaign goes viral</li>
+          <li>1,000 holders</li>
+          <li>Influencer attention</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-tag">Phase 3</div>
+        <h3>The Dark Arts 🌑</h3>
+        <ul>
+          <li>Raydium listing</li>
+          <li>CoinGecko & CMC listing</li>
+          <li>10,000 holders</li>
+          <li>Partnerships & collabs</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="phase-tag">Phase 4</div>
+        <h3>Ascension ⚡</h3>
+        <ul>
+          <li>CEX listing</li>
+          <li>Global meme domination</li>
+          <li>100,000 holders</li>
+          <li>The Dark Lord wins 🏆</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIALS -->
+  <section class="socials" id="socials">
+    <div class="section-label">Community</div>
+    <h2 class="section-title">Join the <span>Army</span> 🧙🏿</h2>
+    <p class="socials-sub">
+      The chosen ones are already inside. Get in before Black Snape locks the gates forever.
+    </p>
+    <div class="social-links">
+      <!-- SWAP hrefs with real links -->
+      <a href="TWITTER_LINK_HERE" target="_blank" class="btn btn-outline social-btn">🐦 Twitter / X</a>
+      <a href="TELEGRAM_LINK_HERE" target="_blank" class="btn btn-outline social-btn">✈️ Telegram</a>
+    </div>
+    <div class="final-cta">
+      <a href="DEXSCREENER_LINK_HERE" target="_blank" class="btn btn-primary"
+        style="font-size:1.1rem; padding:16px 44px;">
+        ⚡ Buy $SNAPE Now
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">🧙🏿 $SNAPE</div>
+    <p>© 2025 Black Snape — The Dark Lord of Solana</p>
+    <p class="disclaimer">
+      $SNAPE is a meme coin with no intrinsic value or financial return expectation.
+      This is not financial advice. Only invest what you can afford to lose. Do your own research.
+    </p>
+  </footer>
+
+  <script>
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) closeMenu();
+    });
+
+    // Copy CA
+    function copyCA() {
+      const ca = document.getElementById('caAddress').innerText;
+      navigator.clipboard.writeText(ca).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.innerText = 'COPIED!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.innerText = 'COPY';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Scroll fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.toko-card, .buy-step, .phase, .story-grid, .about-content').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+
+</html>
